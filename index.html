@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ohio Restaurant - Krofrom's Premier Dining Experience</title>
+    <meta name="description" content="Experience exceptional dining at Ohio Restaurant in Krofrom. Modern ambiance, delicious cuisine, and perfect for all occasions.">
+    <script defer src="https://unpkg.com/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        
+        .loader-content {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--light-bg);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('slide-in');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            document.querySelectorAll('.feature-card').forEach(card => {
+                observer.observe(card);
+            });
+        });
+    </script>
+</head>
+<body x-data="{ 
+    mobileMenuOpen: false,
+    scrolled: false,
+    activeFeature: null
+}" 
+@scroll.window="scrolled = (window.pageYOffset > 50)"
+class="overflow-x-hidden">
+    <div class="loader" x-data x-init="setTimeout(() => $el.remove(), 1000)">
+        <div class="loader-content"></div>
+    </div>
+    <header class="header" :class="{ 'scrolled': scrolled }">
+        <nav class="nav-container">
+            <div class="logo">Ohio Restaurant</div>
+            <button class="mobile-menu-btn" @click="mobileMenuOpen = !mobileMenuOpen">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" :class="{ 'active': mobileMenuOpen }">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Welcome to Ohio Restaurant</h1>
+                <p>Experience exceptional dining in the heart of Krofrom</p>
+                <a href="tel:+233596922066" class="cta-button hero-cta">
+                    <i class="fas fa-phone"></i> Call to Order
+                </a>
+            </div>
+        </section>
+
+        <section class="greeting">
+            <div class="container">
+                <div class="greeting-content">
+                    <p class="greeting-time" x-data x-init="
+                        setInterval(() => {
+                            const hour = new Date().getHours();
+                            $el.textContent = hour < 12 ? 'Good Morning!' : 
+                                            hour < 17 ? 'Good Afternoon!' : 
+                                            'Good Evening!';
+                        }, 1000)
+                    "></p>
+                    <p class="greeting-text">Experience the finest dining in Krofrom. Whether you're joining us for a casual meal or a special celebration, we're here to serve you with our delicious cuisine and warm hospitality.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <h2>About Us</h2>
+                <div class="about-grid">
+                    <div class="about-text">
+                        <p>Ohio Restaurant offers a modern dining experience blending sophistication and a relaxed atmosphere. Located in the heart of Krofrom, adjacent to Sikka FM, we're the perfect place for families, friends, and couples.</p>
+                        <p>We take pride in serving high-quality meals, with an array of local and international dishes. At Ohio Restaurant, dining is not just about food—it's an experience to remember.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="images/restaurant-interior.jpg" alt="Ohio Restaurant Interior" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <h2>Special Features</h2>
+                <div class="features-grid">
+                    <div class="feature-card" @mouseenter="activeFeature = 'interior'" @mouseleave="activeFeature = null">
+                        <h3>Interior & Environment</h3>
+                        <ul>
+                            <li>Contemporary and stylish decor</li>
+                            <li>Well-arranged sitting areas</li>
+                            <li>Perfect ambient lighting</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card" @mouseenter="activeFeature = 'events'" @mouseleave="activeFeature = null">
+                        <h3>Events & Celebrations</h3>
+                        <ul>
+                            <li>Birthday celebrations</li>
+                            <li>Private events</li>
+                            <li>Live music nights</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card" @mouseenter="activeFeature = 'offerings'" @mouseleave="activeFeature = null">
+                        <h3>Signature Offerings</h3>
+                        <ul>
+                            <li>Local & international cuisine</li>
+                            <li>Premium cocktails</li>
+                            <li>Exceptional service</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2>Contact Us</h2>
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h3>Location</h3>
+                        <p>Krofrom, Adjacent Sikka FM</p>
+                        <div class="map-container">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d1233.117876505814!2d-1.6168237303796595!3d6.710193999580351!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNsKwNDInMzYuNyJOIDHCsDM2JzU4LjMiVw!5e1!3m2!1sen!2sng!4v1738108437124!5m2!1sen!2sng" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                        <h3>Call Center</h3>
+                        <p><a href="tel:+233596922066">0596922066</a></p>
+                        <h3>Follow Us</h3>
+                        <div class="social-links">
+                            <a href="https://www.instagram.com/ohiorestaurantgh" target="_blank" rel="noopener">
+                                <i class="fab fa-instagram"></i> Instagram
+                            </a>
+                            <a href="https://www.facebook.com/profile.php?id=61567456446668" target="_blank" rel="noopener">
+                                <i class="fab fa-facebook"></i> Facebook
+                            </a>
+                            <a href="https://www.tiktok.com/@ohio.restaurant" target="_blank" rel="noopener">
+                                <i class="fab fa-tiktok"></i> TikTok
+                            </a>
+                        </div>
+                    </div>
+                    <form class="contact-form">
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                        <input type="tel" placeholder="Phone Number">
+                        <textarea placeholder="Your Message" required></textarea>
+                        <button type="submit" class="cta-button">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Ohio Restaurant. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html> 
