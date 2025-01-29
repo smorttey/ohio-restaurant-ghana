@@ -64,6 +64,27 @@
 }" 
 @scroll.window="scrolled = (window.pageYOffset > 50)"
 class="overflow-x-hidden">
+    <button 
+        class="back-to-top" 
+        x-data 
+        x-show="window.pageYOffset > 300 && 
+                document.querySelector('#menu').getBoundingClientRect().top < 0 && 
+                document.querySelector('#menu').getBoundingClientRect().bottom > 0"
+        @click="window.scrollTo({top: 0, behavior: 'smooth'})"
+        aria-label="Scroll to top"
+    >
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    <button 
+        class="scroll-to-menu" 
+        @click="document.querySelector('.menu-nav').scrollIntoView({behavior: 'smooth'})"
+        x-data
+        x-show="window.pageYOffset > 300 && 
+                document.querySelector('#menu').getBoundingClientRect().top < 0 && 
+                document.querySelector('#menu').getBoundingClientRect().bottom > 0"
+    >
+        <i class="fas fa-utensils"></i> Menu
+    </button>
     <div class="loader" x-data x-init="setTimeout(() => $el.remove(), 1000)">
         <div class="loader-content"></div>
     </div>
@@ -85,7 +106,7 @@ class="overflow-x-hidden">
     </header>
 
     <main>
-        <section id="home" class="hero">
+        <section id="home" class="hero" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('./images/hero-bg.jpg');">
             <div class="hero-content">
                 <h1>Welcome to Ohio Restaurant</h1>
                 <p>Experience exceptional dining in the heart of Krofrom</p>
@@ -120,7 +141,7 @@ class="overflow-x-hidden">
                         <p>We take pride in serving high-quality meals, with an array of local and international dishes. At Ohio Restaurant, dining is not just about food—it's an experience to remember.</p>
                     </div>
                     <div class="about-image">
-                        <img src="images/restaurant-interior.jpg" alt="Ohio Restaurant Interior" loading="lazy">
+                        <img src="./images/restaurant-interior.jpg" alt="Ohio Restaurant Interior" loading="lazy">
                     </div>
                 </div>
             </div>
@@ -153,6 +174,456 @@ class="overflow-x-hidden">
                             <li>Premium cocktails</li>
                             <li>Exceptional service</li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="menu" class="menu" x-data="{ activeTab: 'cocktails' }">
+            <div class="container">
+                <h2>Our Menu</h2>
+                
+                <!-- Menu Navigation -->
+                <div class="menu-nav">
+                    <button @click="activeTab = 'cocktails'" :class="{ active: activeTab === 'cocktails' }">Cocktails</button>
+                    <button @click="activeTab = 'specials'" :class="{ active: activeTab === 'specials' }">Specials</button>
+                    <button @click="activeTab = 'champagnes'" :class="{ active: activeTab === 'champagnes' }">Champagnes</button>
+                    <button @click="activeTab = 'shots'" :class="{ active: activeTab === 'shots' }">Shots</button>
+                    <button @click="activeTab = 'liquor'" :class="{ active: activeTab === 'liquor' }">Whisky & Liquor</button>
+                    <button @click="activeTab = 'food'" :class="{ active: activeTab === 'food' }">Food</button>
+                </div>
+
+                <!-- Menu Content -->
+                <div class="menu-content">
+                    <!-- Cocktails -->
+                    <div class="menu-section" x-show="activeTab === 'cocktails'" x-transition>
+                        <h3>Signature Cocktails</h3>
+                        <div class="menu-grid">
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Blue Hawaii</h4>
+                                    <span class="price">GHC 130</span>
+                                </div>
+                                <p>Vodka, White Rum, Blue Curacao, Liqueur, Lemon juice, Simple syrup, Pineapple</p>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Green Means Go</h4>
+                                    <span class="price">GHC 100</span>
+                                </div>
+                                <p>Apple Vodka, Malibu, Pineapple juice, Green melon liqueur, Lemon juice</p>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>James Has a Son</h4>
+                                    <span class="price">GHC 110</span>
+                                </div>
+                                <p>Jameson Whisky, Lemon juice, Simple syrup, Ginger beer, Egg White (Optional)</p>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Cosmopolitan</h4>
+                                    <span class="price">GHC 80</span>
+                                </div>
+                                <p>Vodka, Triple sec, Lemon juice, Cranberry juice</p>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Classic Mojito</h4>
+                                    <span class="price">GHC 85</span>
+                                </div>
+                                <p>Mint leaves, Lemon, Mojito syrup, White rum, Soda water</p>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>BMW</h4>
+                                    <span class="price">GHC 120</span>
+                                </div>
+                                <p>Baileys, Malibu & Whisky</p>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Pina Colada</h4>
+                                    <span class="price">GHC 90</span>
+                                </div>
+                                <p>Pineapple juice, Fresh milk, Heavy cream, Coconut syrup, White rum</p>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Sex on the Beach</h4>
+                                    <span class="price">GHC 90</span>
+                                </div>
+                                <p>Peach liqueur, Vodka, Orange juice, Cranberry juice</p>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Mai Tai</h4>
+                                    <span class="price">GHC 140</span>
+                                </div>
+                                <p>White rum, Dark rum, Triple sec, Orgeat syrup, Lemon</p>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Margarita</h4>
+                                    <span class="price">GHC 90</span>
+                                </div>
+                                <p>Tequila, Triple sec, Lemon juice</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Specials -->
+                    <div class="menu-section" x-show="activeTab === 'specials'" x-transition>
+                        <h3>Special Drinks</h3>
+                        <div class="menu-grid">
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Tokyo Ice Tea</h4>
+                                    <span class="price">GHC 140</span>
+                                </div>
+                                <p>Tequila, Gin, White rum, Vodka, Green melon liqueur, Lemon juice, Sprite</p>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Bob Marley</h4>
+                                    <span class="price">GHC 80</span>
+                                </div>
+                                <p>Grenadine syrup, Orange juice, Pineapple juice, Simple syrup, Green apple syrup</p>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Perfect Cloud</h4>
+                                    <span class="price">GHC 85</span>
+                                </div>
+                                <p>Pineapple juice, Fresh milk, Coconut syrup, Heavy cream, Blue Curacao syrup</p>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Safe Sex</h4>
+                                    <span class="price">GHC 65</span>
+                                </div>
+                                <p>Orange juice, Cranberry juice, Peach syrup</p>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Summer</h4>
+                                    <span class="price">GHC 80</span>
+                                </div>
+                                <p>Passion fruit, Passion fruit syrup, Pineapple juice, Orange juice, Mint leaves (Optional)</p>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Super Lemonade</h4>
+                                    <span class="price">GHC 55</span>
+                                </div>
+                                <p>Lemon, Simple syrup, Sprite</p>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Two Worlds</h4>
+                                    <span class="price">GHC 65</span>
+                                </div>
+                                <p>Grenadine syrup, Orange juice, Pineapple juice, Simple syrup</p>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Virgin Colada</h4>
+                                    <span class="price">GHC 70</span>
+                                </div>
+                                <p>Pineapple, Fresh milk, Coconut syrup, Heavy cream</p>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Virgin Mojito</h4>
+                                    <span class="price">GHC 70</span>
+                                </div>
+                                <p>Mint leaves, Lemon, Mojito syrup, Sprite</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Champagnes -->
+                    <div class="menu-section" x-show="activeTab === 'champagnes'" x-transition>
+                        <h3>Champagnes</h3>
+                        <div class="menu-grid">
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Veuve Clicquot Brut Rich</h4>
+                                    <span class="price">GHC 2500</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Moet & Chandon Nectar Imperial</h4>
+                                    <span class="price">GHC 2000</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Moet & Chandon Imperial Brut</h4>
+                                    <span class="price">GHC 1900</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Belaire Rare Rose</h4>
+                                    <span class="price">GHC 1500</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Luc Belaire Blue</h4>
+                                    <span class="price">GHC 1800</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Martini 0.0</h4>
+                                    <span class="price">GHC 400</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shots -->
+                    <div class="menu-section" x-show="activeTab === 'shots'" x-transition>
+                        <h3>Shots</h3>
+                        <div class="menu-grid">
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Bacardi White Rum</h4>
+                                    <span class="price">GHC 45</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Baileys</h4>
+                                    <span class="price">GHC 45</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Black Label Johnny Walker</h4>
+                                    <span class="price">GHC 50</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Blow Job</h4>
+                                    <span class="price">GHC 70</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Brain Damage</h4>
+                                    <span class="price">GHC 85</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Captain Morgan</h4>
+                                    <span class="price">GHC 35</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Gordon Gin</h4>
+                                    <span class="price">GHC 25</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Hennessy VSOP</h4>
+                                    <span class="price">GHC 70</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Jack Daniels</h4>
+                                    <span class="price">GHC 60</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Jagermeister</h4>
+                                    <span class="price">GHC 30</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Jameson Whisky</h4>
+                                    <span class="price">GHC 40</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Whisky & Liquor -->
+                    <div class="menu-section" x-show="activeTab === 'liquor'" x-transition>
+                        <h3>Whisky & Liquor</h3>
+                        <div class="menu-grid">
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Red Label Johnny Walker (1L)</h4>
+                                    <span class="price">GHC 750</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Black Label Johnny Walker (1L)</h4>
+                                    <span class="price">GHC 1200</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Baileys (1L)</h4>
+                                    <span class="price">GHC 750</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Old Admiral</h4>
+                                    <span class="price">GHC 650</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Omelca Tequila</h4>
+                                    <span class="price">GHC 600</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Bacardi White Rum (1L)</h4>
+                                    <span class="price">GHC 850</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Food -->
+                    <div class="menu-section" x-show="activeTab === 'food'" x-transition>
+                        <h3>Food Menu</h3>
+                        
+                        <!-- Salads -->
+                        <h4 class="menu-category">Salads</h4>
+                        <div class="menu-grid">
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Chef Salad</h4>
+                                    <span class="price">GHC 100</span>
+                                </div>
+                                <p>Lettuce, Chicken, toasted mushroom, boiled egg, fresh tomatoes, onion, carrot, mozzarella cheese, served with honey mustard sauce</p>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Potato Salad</h4>
+                                    <span class="price">GHC 100</span>
+                                </div>
+                                <p>Boiled potatoes, chopped tomatoes, onion, green pepper, egg, mayonnaise</p>
+                            </div>
+                        </div>
+
+                        <!-- Starters -->
+                        <h4 class="menu-category">Starters</h4>
+                        <div class="menu-grid">
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Yam Balls</h4>
+                                    <span class="price">GHC 70</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Spring Rolls</h4>
+                                    <span class="price">GHC 30</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Samosa</h4>
+                                    <span class="price">GHC 30</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Main Dishes -->
+                        <h4 class="menu-category">Main Dishes</h4>
+                        <div class="menu-grid">
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Golden Fried Shrimps</h4>
+                                    <span class="price">GHC 150</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Grilled Prawns</h4>
+                                    <span class="price">GHC 150</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Beef Steak</h4>
+                                    <span class="price">GHC 200</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Boneless Grilled Chicken</h4>
+                                    <span class="price">GHC 250</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Mixed Grilled</h4>
+                                    <span class="price">GHC 350</span>
+                                </div>
+                                <p>Grilled chicken breast, grilled beef fillet, grilled red fish, grilled prawns</p>
+                            </div>
+                        </div>
+
+                        <!-- Rice Dishes -->
+                        <h4 class="menu-category">Rice Dishes</h4>
+                        <div class="menu-grid">
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Goat Jollof</h4>
+                                    <span class="price">GHC 180</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Chilli Fried Rice</h4>
+                                    <span class="price">GHC 120</span>
+                                </div>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Shrimp Fried Rice</h4>
+                                    <span class="price">GHC 150</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Noodles -->
+                        <h4 class="menu-category">Noodles</h4>
+                        <div class="menu-grid">
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Assorted Noodles</h4>
+                                    <span class="price">GHC 210</span>
+                                </div>
+                                <p>Noodles with beef fillet, chicken fillet, sausage, cabbage, onion, green pepper, carrot</p>
+                            </div>
+                            <div class="menu-item">
+                                <div class="menu-item-header">
+                                    <h4>Seafood Chinese Noodles</h4>
+                                    <span class="price">GHC 190</span>
+                                </div>
+                                <p>Squid fillet, shrimp fillet, fish fillet, noodles, carrot, cabbage</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
